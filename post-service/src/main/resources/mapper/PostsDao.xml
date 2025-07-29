@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace=".dao.PostsDao">
+
+    <resultMap type=".entity.Posts" id="PostsMap">
+        <result property="id" column="Id" jdbcType="INTEGER"/>
+        <result property="acceptedanswerid" column="AcceptedAnswerId" jdbcType="INTEGER"/>
+        <result property="answercount" column="AnswerCount" jdbcType="INTEGER"/>
+        <result property="body" column="Body" jdbcType="INTEGER"/>
+        <result property="closeddate" column="ClosedDate" jdbcType="TIMESTAMP"/>
+        <result property="commentcount" column="CommentCount" jdbcType="INTEGER"/>
+        <result property="communityowneddate" column="CommunityOwnedDate" jdbcType="TIMESTAMP"/>
+        <result property="creationdate" column="CreationDate" jdbcType="TIMESTAMP"/>
+        <result property="favoritecount" column="FavoriteCount" jdbcType="INTEGER"/>
+        <result property="lastactivitydate" column="LastActivityDate" jdbcType="TIMESTAMP"/>
+        <result property="lasteditdate" column="LastEditDate" jdbcType="TIMESTAMP"/>
+        <result property="lasteditordisplayname" column="LastEditorDisplayName" jdbcType="VARCHAR"/>
+        <result property="lasteditoruserid" column="LastEditorUserId" jdbcType="INTEGER"/>
+        <result property="owneruserid" column="OwnerUserId" jdbcType="INTEGER"/>
+        <result property="parentid" column="ParentId" jdbcType="INTEGER"/>
+        <result property="posttypeid" column="PostTypeId" jdbcType="INTEGER"/>
+        <result property="score" column="Score" jdbcType="INTEGER"/>
+        <result property="tags" column="Tags" jdbcType="VARCHAR"/>
+        <result property="title" column="Title" jdbcType="VARCHAR"/>
+        <result property="viewcount" column="ViewCount" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PostsMap">
+        select
+Id, AcceptedAnswerId, AnswerCount, Body, ClosedDate, CommentCount, CommunityOwnedDate, CreationDate, FavoriteCount, LastActivityDate, LastEditDate, LastEditorDisplayName, LastEditorUserId, OwnerUserId, ParentId, PostTypeId, Score, Tags, Title, ViewCount
+        from Posts
+        where Id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PostsMap">
+        select
+Id, AcceptedAnswerId, AnswerCount, Body, ClosedDate, CommentCount, CommunityOwnedDate, CreationDate, FavoriteCount, LastActivityDate, LastEditDate, LastEditorDisplayName, LastEditorUserId, OwnerUserId, ParentId, PostTypeId, Score, Tags, Title, ViewCount
+        from Posts
+        <where>
+            <if test="id != null">
+                and Id = #{id}
+            </if>
+            <if test="acceptedanswerid != null">
+                and AcceptedAnswerId = #{acceptedanswerid}
+            </if>
+            <if test="answercount != null">
+                and AnswerCount = #{answercount}
+            </if>
+            <if test="body != null">
+                and Body = #{body}
+            </if>
+            <if test="closeddate != null">
+                and ClosedDate = #{closeddate}
+            </if>
+            <if test="commentcount != null">
+                and CommentCount = #{commentcount}
+            </if>
+            <if test="communityowneddate != null">
+                and CommunityOwnedDate = #{communityowneddate}
+            </if>
+            <if test="creationdate != null">
+                and CreationDate = #{creationdate}
+            </if>
+            <if test="favoritecount != null">
+                and FavoriteCount = #{favoritecount}
+            </if>
+            <if test="lastactivitydate != null">
+                and LastActivityDate = #{lastactivitydate}
+            </if>
+            <if test="lasteditdate != null">
+                and LastEditDate = #{lasteditdate}
+            </if>
+            <if test="lasteditordisplayname != null and lasteditordisplayname != ''">
+                and LastEditorDisplayName = #{lasteditordisplayname}
+            </if>
+            <if test="lasteditoruserid != null">
+                and LastEditorUserId = #{lasteditoruserid}
+            </if>
+            <if test="owneruserid != null">
+                and OwnerUserId = #{owneruserid}
+            </if>
+            <if test="parentid != null">
+                and ParentId = #{parentid}
+            </if>
+            <if test="posttypeid != null">
+                and PostTypeId = #{posttypeid}
+            </if>
+            <if test="score != null">
+                and Score = #{score}
+            </if>
+            <if test="tags != null and tags != ''">
+                and Tags = #{tags}
+            </if>
+            <if test="title != null and title != ''">
+                and Title = #{title}
+            </if>
+            <if test="viewcount != null">
+                and ViewCount = #{viewcount}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from Posts
+        <where>
+            <if test="id != null">
+                and Id = #{id}
+            </if>
+            <if test="acceptedanswerid != null">
+                and AcceptedAnswerId = #{acceptedanswerid}
+            </if>
+            <if test="answercount != null">
+                and AnswerCount = #{answercount}
+            </if>
+            <if test="body != null">
+                and Body = #{body}
+            </if>
+            <if test="closeddate != null">
+                and ClosedDate = #{closeddate}
+            </if>
+            <if test="commentcount != null">
+                and CommentCount = #{commentcount}
+            </if>
+            <if test="communityowneddate != null">
+                and CommunityOwnedDate = #{communityowneddate}
+            </if>
+            <if test="creationdate != null">
+                and CreationDate = #{creationdate}
+            </if>
+            <if test="favoritecount != null">
+                and FavoriteCount = #{favoritecount}
+            </if>
+            <if test="lastactivitydate != null">
+                and LastActivityDate = #{lastactivitydate}
+            </if>
+            <if test="lasteditdate != null">
+                and LastEditDate = #{lasteditdate}
+            </if>
+            <if test="lasteditordisplayname != null and lasteditordisplayname != ''">
+                and LastEditorDisplayName = #{lasteditordisplayname}
+            </if>
+            <if test="lasteditoruserid != null">
+                and LastEditorUserId = #{lasteditoruserid}
+            </if>
+            <if test="owneruserid != null">
+                and OwnerUserId = #{owneruserid}
+            </if>
+            <if test="parentid != null">
+                and ParentId = #{parentid}
+            </if>
+            <if test="posttypeid != null">
+                and PostTypeId = #{posttypeid}
+            </if>
+            <if test="score != null">
+                and Score = #{score}
+            </if>
+            <if test="tags != null and tags != ''">
+                and Tags = #{tags}
+            </if>
+            <if test="title != null and title != ''">
+                and Title = #{title}
+            </if>
+            <if test="viewcount != null">
+                and ViewCount = #{viewcount}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into Posts(AcceptedAnswerId, AnswerCount, Body, ClosedDate, CommentCount, CommunityOwnedDate, CreationDate, FavoriteCount, LastActivityDate, LastEditDate, LastEditorDisplayName, LastEditorUserId, OwnerUserId, ParentId, PostTypeId, Score, Tags, Title, ViewCount)
+        values (#{acceptedanswerid}, #{answercount}, #{body}, #{closeddate}, #{commentcount}, #{communityowneddate}, #{creationdate}, #{favoritecount}, #{lastactivitydate}, #{lasteditdate}, #{lasteditordisplayname}, #{lasteditoruserid}, #{owneruserid}, #{parentid}, #{posttypeid}, #{score}, #{tags}, #{title}, #{viewcount})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into Posts(AcceptedAnswerId, AnswerCount, Body, ClosedDate, CommentCount, CommunityOwnedDate, CreationDate, FavoriteCount, LastActivityDate, LastEditDate, LastEditorDisplayName, LastEditorUserId, OwnerUserId, ParentId, PostTypeId, Score, Tags, Title, ViewCount)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.acceptedanswerid}, #{entity.answercount}, #{entity.body}, #{entity.closeddate}, #{entity.commentcount}, #{entity.communityowneddate}, #{entity.creationdate}, #{entity.favoritecount}, #{entity.lastactivitydate}, #{entity.lasteditdate}, #{entity.lasteditordisplayname}, #{entity.lasteditoruserid}, #{entity.owneruserid}, #{entity.parentid}, #{entity.posttypeid}, #{entity.score}, #{entity.tags}, #{entity.title}, #{entity.viewcount})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into Posts(AcceptedAnswerId, AnswerCount, Body, ClosedDate, CommentCount, CommunityOwnedDate, CreationDate, FavoriteCount, LastActivityDate, LastEditDate, LastEditorDisplayName, LastEditorUserId, OwnerUserId, ParentId, PostTypeId, Score, Tags, Title, ViewCount)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.acceptedanswerid}, #{entity.answercount}, #{entity.body}, #{entity.closeddate}, #{entity.commentcount}, #{entity.communityowneddate}, #{entity.creationdate}, #{entity.favoritecount}, #{entity.lastactivitydate}, #{entity.lasteditdate}, #{entity.lasteditordisplayname}, #{entity.lasteditoruserid}, #{entity.owneruserid}, #{entity.parentid}, #{entity.posttypeid}, #{entity.score}, #{entity.tags}, #{entity.title}, #{entity.viewcount})
+        </foreach>
+        on duplicate key update
+AcceptedAnswerId = values(AcceptedAnswerId),
+AnswerCount = values(AnswerCount),
+Body = values(Body),
+ClosedDate = values(ClosedDate),
+CommentCount = values(CommentCount),
+CommunityOwnedDate = values(CommunityOwnedDate),
+CreationDate = values(CreationDate),
+FavoriteCount = values(FavoriteCount),
+LastActivityDate = values(LastActivityDate),
+LastEditDate = values(LastEditDate),
+LastEditorDisplayName = values(LastEditorDisplayName),
+LastEditorUserId = values(LastEditorUserId),
+OwnerUserId = values(OwnerUserId),
+ParentId = values(ParentId),
+PostTypeId = values(PostTypeId),
+Score = values(Score),
+Tags = values(Tags),
+Title = values(Title),
+ViewCount = values(ViewCount)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update Posts
+        <set>
+            <if test="acceptedanswerid != null">
+                AcceptedAnswerId = #{acceptedanswerid},
+            </if>
+            <if test="answercount != null">
+                AnswerCount = #{answercount},
+            </if>
+            <if test="body != null">
+                Body = #{body},
+            </if>
+            <if test="closeddate != null">
+                ClosedDate = #{closeddate},
+            </if>
+            <if test="commentcount != null">
+                CommentCount = #{commentcount},
+            </if>
+            <if test="communityowneddate != null">
+                CommunityOwnedDate = #{communityowneddate},
+            </if>
+            <if test="creationdate != null">
+                CreationDate = #{creationdate},
+            </if>
+            <if test="favoritecount != null">
+                FavoriteCount = #{favoritecount},
+            </if>
+            <if test="lastactivitydate != null">
+                LastActivityDate = #{lastactivitydate},
+            </if>
+            <if test="lasteditdate != null">
+                LastEditDate = #{lasteditdate},
+            </if>
+            <if test="lasteditordisplayname != null and lasteditordisplayname != ''">
+                LastEditorDisplayName = #{lasteditordisplayname},
+            </if>
+            <if test="lasteditoruserid != null">
+                LastEditorUserId = #{lasteditoruserid},
+            </if>
+            <if test="owneruserid != null">
+                OwnerUserId = #{owneruserid},
+            </if>
+            <if test="parentid != null">
+                ParentId = #{parentid},
+            </if>
+            <if test="posttypeid != null">
+                PostTypeId = #{posttypeid},
+            </if>
+            <if test="score != null">
+                Score = #{score},
+            </if>
+            <if test="tags != null and tags != ''">
+                Tags = #{tags},
+            </if>
+            <if test="title != null and title != ''">
+                Title = #{title},
+            </if>
+            <if test="viewcount != null">
+                ViewCount = #{viewcount},
+            </if>
+        </set>
+        where Id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from Posts where Id = #{id}
+    </delete>
+
+</mapper>
+
