@@ -1,12 +1,16 @@
 package com.example.postservice.service.impl;
 
 import com.example.postservice.dto.PostDto;
+import com.example.postservice.entity.Post;
 import com.example.postservice.repository.PostRepository;
 import com.example.postservice.service.PostService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +25,9 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDto> findAll() {
-        return postRepository.findAll()
-                .stream()
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Post> postLis = postRepository.findAll(pageable);
+        return postLis.getContent().stream()
                 .map(post -> modelMapper.map(post, PostDto.class))
                 .collect(Collectors.toList());
     }

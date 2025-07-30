@@ -1,6 +1,7 @@
 package com.example.postservice.dto;
 
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -8,7 +9,10 @@ import java.time.Instant;
 /**
  * DTO for {@link com.example.postservice.entity.Post}
  */
-@Value
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class PostDto implements Serializable {
     Integer id;
     Integer acceptedAnswerId;
